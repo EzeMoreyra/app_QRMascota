@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { AuthenticateService } from '../services/authenticate.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController, private authService: AuthenticateService) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.navCtrl.navigateRoot('/login');
   }
 
 }

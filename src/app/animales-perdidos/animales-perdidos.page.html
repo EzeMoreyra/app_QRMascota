@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Animales Perdidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registra tu mascota perdida</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="mascotaForm" (ngSubmit)="registrarMascota()">
+        <ion-item>
+          <ion-label position="floating">Nombre de la mascota</ion-label>
+          <ion-input formControlName="nombre" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-input formControlName="descripcion" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Última ubicación</ion-label>
+          <ion-input formControlName="ubicacion" type="text"></ion-input>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" [disabled]="!mascotaForm.valid">Registrar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer text-center>
+  <ion-button expand="full" shape="round" (click)="volverATabs()">
+    Volver
+  </ion-button>
+</ion-footer>
