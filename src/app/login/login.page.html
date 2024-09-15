@@ -1,24 +1,44 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content padding>
+  <figure class="text-center">
+    <img src="/assets/img/logo.png" alt="Logo" />
+  </figure>
 
-<ion-content>
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngIf="loginForm.get('email')">
+        <ng-container *ngFor="let validation of validation_messages.email">
+          <div *ngIf="loginForm.get('email')?.hasError(validation.type) &&
+                      (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
 
-  <form [formGroup]="formularioLogin">
-  <ion-item>
-    <ion-label position="floating">Nombre</ion-label>
-    <ion-input formControlName="nombre"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input formControlName="password" type="password"></ion-input>
-  </ion-item>
-
-</form>
-
-
-
+    <ion-item>
+      <ion-label>Contraseña</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngIf="loginForm.get('password')">
+        <ng-container *ngFor="let validation of validation_messages.password">
+          <div *ngIf="loginForm.get('password')?.hasError(validation.type) &&
+                      (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <ion-button expand="full" shape="round" type="submit" [disabled]="!loginForm.valid">
+      Login</ion-button>
+  </form>
 </ion-content>
+
+<ion-footer text-center>
+    <ion-button expand="full" shape="round" fill="outline">
+      Click para registrar</ion-button>
+</ion-footer>

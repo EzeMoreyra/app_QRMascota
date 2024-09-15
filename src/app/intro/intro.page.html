@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-title>Intro</ion-title>
+</ion-header>
+
+<ion-content>
+  <swiper-container (slidechange)="swiperSlideChanged($event)"  [loop]="true" [pagination]="true">
+    <swiper-slide *ngFor="let slide of slides">
+    <ion-icon name="close" (click)="finish()"></ion-icon>
+    <img [src]="slide.imageSrc" [alt]="slide.imageAlt" />
+    <h1>{{slide.titulo}}</h1>
+    <h2>{{slide.subtitulo}}</h2>
+    <p>{{slide.descripcion}}</p>
+  </swiper-slide>
+</swiper-container>
+</ion-content>

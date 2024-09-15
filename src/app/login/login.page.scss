@@ -1,0 +1,66 @@
+// Estilo para el contenedor principal
+ion-content {
+  --background: linear-gradient(135deg, #f7f8fc, #e2e2e2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0;
+}
+
+//Estilo para el logo
+figure {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+figure img {
+  max-width: 150px;
+  height: auto;
+}
+
+
+// Estilo para el formulario de inicio de sesión
+form {
+  width: 100%;
+  max-width: 360px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 24px;
+  margin: 16px;
+}
+
+
+// Estilo para los elementos del formulario
+ion-item {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-label {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 4px; /* Espacio entre la etiqueta y el campo de entrada */
+}
+
+ion-input {
+  --background: #f1f1f1;
+  --placeholder-color: #999;
+  --color: #000000; // Color del texto cuando el usuario está escribiendo */
+  padding: 8px;
+  border-radius: 4px;
+}
+
+// Estilo para los mensajes de error de validación
+.validation-error {
+  color: #000000;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+// Asegurarse de que los elementos del formulario estén bien alineados
+ion-item:last-of-type {
+  margin-bottom: 0;
+}
