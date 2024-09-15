@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authenticate.service';
+import { RegistroExitosoModalComponent } from '../components/registro-exitoso-modal/registro-exitoso-modal.component'; // El modal personalizado
 
 @Component({
   selector: 'app-registro',
@@ -10,7 +11,7 @@ import { AuthenticateService } from '../services/authenticate.service';
 })
 export class RegistroPage implements OnInit {
   registroForm: FormGroup;
-  isModalOpen = false;
+  
   validation_messages = {
     firstName: [
       { type: 'required', message: 'El nombre es requerido' },
@@ -31,7 +32,8 @@ export class RegistroPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private authService: AuthenticateService
+    private authService: AuthenticateService,
+    private modalController: ModalController  // Se añade el ModalController
   ) {
     this.registroForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -49,21 +51,27 @@ export class RegistroPage implements OnInit {
 
   ngOnInit() {}
 
-  registerUser(value: any) {
-    this.authService.registerUser(value).then((res: any) => {
+  async registerUser(value: any) {
+    this.authService.registerUser(value).then(async (res: any) => {
       console.log('Nuevo usuario registrado:', value);
-      this.navCtrl.navigateForward('/login');
-      this.openModal(); 
+
+      // Abrir modal de éxito
+      const modal = await this.modalController.create({
+        component: RegistroExitosoModalComponent,  // Componente del modal
+        componentProps: {  // Pasar datos si es necesario
+          nombre: value.firstName,
+        },
+        backdropDismiss: false  // Para no cerrar el modal haciendo clic fuera de él
+      });
+      await modal.present();
+
+      // Navegación opcional después de cerrar el modal
+      const { role } = await modal.onDidDismiss();
+      if (role === 'confirm') {
+        this.navCtrl.navigateForward('/login');
+      }
     }).catch((err: any) => { 
-      console.error(err);
+      console.error('Error en el registro:', err);
     });
-  }
-
-  openModal() {
-    this.isModalOpen = true;
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
   }
 }

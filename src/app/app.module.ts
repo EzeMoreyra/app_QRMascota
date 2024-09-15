@@ -5,11 +5,23 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { RegistroExitosoModalComponent } from './components/registro-exitoso-modal/registro-exitoso-modal.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent],
+  declarations: [
+    AppComponent,
+    RegistroExitosoModalComponent  // Declarar el componente del modal
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    IonicStorageModule.forRoot()  // Inicializar el módulo de almacenamiento
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }  // Estrategia de reutilización de rutas
+  ],
+  bootstrap: [AppComponent]  // Componente principal que se arranca
 })
 export class AppModule {}
+
