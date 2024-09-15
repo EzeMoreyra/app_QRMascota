@@ -11,6 +11,19 @@ export class AuthenticateService {
     this.init(); // Inicializar la base de datos
   }
 
+// Simula el registro del usuario
+registerUser(userData: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // Aquí podrías agregar lógica para interactuar con una API
+    // o registrar usuarios en una base de datos.
+    if (userData.email && userData.password) {
+      resolve('Usuario registrado con éxito');
+    } else {
+      reject('Error en el registro');
+    }
+  });
+}
+
   async init() {
     // Crea el almacenamiento
     const storage = await this.storage.create();
