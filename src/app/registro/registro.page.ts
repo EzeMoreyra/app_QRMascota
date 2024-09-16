@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, AlertController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authenticate.service';
 import { RegistroExitosoModalComponent } from '../components/registro-exitoso-modal/registro-exitoso-modal.component'; // El modal personalizado
 
@@ -33,7 +33,8 @@ export class RegistroPage implements OnInit {
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertController: AlertController
   ) {
     this.registroForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -55,24 +56,33 @@ export class RegistroPage implements OnInit {
     this.authService.registerUser(value).then(async (res: any) => {
       console.log('Nuevo usuario registrado:', value);
 
-      // Abrir modal de éxito
       const modal = await this.modalController.create({
-        component: RegistroExitosoModalComponent,  // Componente del modal
-        componentProps: {  // Pasar datos si es necesario
+        component: RegistroExitosoModalComponent,
+        componentProps: {
           nombre: value.firstName,
         },
-        backdropDismiss: false  // Para no cerrar el modal haciendo clic fuera de él
+        backdropDismiss: false
       });
       await modal.present();
 
-      // Navegación opcional después de cerrar el modal
       const { role } = await modal.onDidDismiss();
       if (role === 'confirm') {
         this.navCtrl.navigateForward('/login');
       }
     }).catch((err: any) => {
       console.error('Error en el registro:', err);
+      this.showErrorAlert(err);  // Mostrar la alerta cuando hay un error
     });
+  }
+
+  async showErrorAlert(errorMessage: string) {
+    const alert = await this.alertController.create({
+      header: 'Error de registro',
+      message: errorMessage,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   goToLogin() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticateService } from '../services/authenticate.service';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,8 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticateService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private alertController: AlertController
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [
@@ -46,8 +47,19 @@ export class LoginPage implements OnInit {
       this.errorMessage = "";
       this.navCtrl.navigateForward('/intro'); // Redirigir a home si el login es exitoso
     }).catch((err) => {
-      this.errorMessage = err; // Mostrar mensaje de error si el login falla
+      this.errorMessage = err;
+      this.showErrorAlert(err);
     });
+  }
+
+  async showErrorAlert(errorMessage: string) {
+    const alert = await this.alertController.create({
+      header: 'Error de autenticación',
+      message: errorMessage,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
 

@@ -16,7 +16,6 @@ export class PerfilPage implements OnInit {
   constructor(private storage: Storage) {}
 
   async ngOnInit() {
-    // Suponiendo que tienes los datos del usuario almacenados en el storage
     this.userData.firstName = await this.storage.get('firstName');
     this.userData.lastName = await this.storage.get('lastName');
     this.userData.email = await this.storage.get('email');
