@@ -54,6 +54,12 @@
       </div>
     </div>
 
-    <ion-button expand="full" type="submit" [disabled]="!registroForm.valid">Registrarse</ion-button>
+    <ion-button expand="full" type="submit" [disabled]="!registroForm.valid">
+      Registrarse
+    </ion-button>
+
+  <ion-button expand="full" color="light" (click)="goToLogin()">
+    Volver
+  </ion-button>
   </form>
 </ion-content>

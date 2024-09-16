@@ -11,14 +11,35 @@
     </ion-card-header>
 
     <ion-card-content>
-      <p><strong>Nombre:</strong> {{ userData.firstName }} {{ userData.lastName }}</p>
-      <p><strong>Email:</strong> {{ userData.email }}</p>
+      <form [formGroup]="perfilForm" (ngSubmit)="guardarPerfil()">
+        <div class="perfil-foto">
+          <ion-img [src]="fotoPerfil || 'assets/img/foto_de_pefil_muestra_3.jpg'"></ion-img>
+        </div>
+        <ion-button expand="block" (click)="cargarImagen()">Subir Foto</ion-button>
+
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="firstName" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input formControlName="lastName" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" [disabled]="!perfilForm.valid">Guardar Cambios</ion-button>
+      </form>
     </ion-card-content>
   </ion-card>
 </ion-content>
 
 <ion-footer text-center>
-    <ion-button expand="full" shape="round" (click)="volverATabs()">
-      Volver
-    </ion-button>
+  <ion-button expand="full" shape="round" (click)="volverATabs()">
+    Volver
+  </ion-button>
 </ion-footer>

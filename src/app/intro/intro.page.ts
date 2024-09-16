@@ -45,7 +45,7 @@ throw new Error('Method not implemented.');
 
   async finish() {
     await this.storage.set(this.MOSTRAR_INTRO, true);
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/tabs');
   }
 
   async ngOnInit() {
@@ -54,7 +54,7 @@ throw new Error('Method not implemented.');
     // Comprueba si el intro ya se ha mostrado
     const hasShownIntro = await this.storage.get(this.MOSTRAR_INTRO);
     if (hasShownIntro) {
-      this.router.navigateByUrl('/home'); // Redirecciona si ya se ha mostrado
+      this.router.navigateByUrl('/tabs'); // Redirecciona si ya se ha mostrado
     }
   }
 }

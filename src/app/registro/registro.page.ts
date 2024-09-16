@@ -11,7 +11,7 @@ import { RegistroExitosoModalComponent } from '../components/registro-exitoso-mo
 })
 export class RegistroPage implements OnInit {
   registroForm: FormGroup;
-  
+
   validation_messages = {
     firstName: [
       { type: 'required', message: 'El nombre es requerido' },
@@ -33,7 +33,7 @@ export class RegistroPage implements OnInit {
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private modalController: ModalController  // Se añade el ModalController
+    private modalController: ModalController
   ) {
     this.registroForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -70,8 +70,12 @@ export class RegistroPage implements OnInit {
       if (role === 'confirm') {
         this.navCtrl.navigateForward('/login');
       }
-    }).catch((err: any) => { 
+    }).catch((err: any) => {
       console.error('Error en el registro:', err);
     });
+  }
+
+  goToLogin() {
+    this.navCtrl.navigateRoot('/login');
   }
 }
